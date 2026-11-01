@@ -12,7 +12,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { CreditCard, Truck, ArrowRight, Lock, ShoppingBag } from 'lucide-react';
 import toast from 'react-hot-toast';
-import api from '@/lib/api';
+import { isAxiosError } from 'axios';
 
 const STEPS = ['Shipping', 'Payment', 'Review'];
 
@@ -83,7 +83,7 @@ export default function CheckoutPage() {
       toast.success('Order placed successfully!');
       router.push(`/order-confirmation?orderId=${res.data._id}`);
     } catch (err) {
-      if (api.isAxiosError(err)) {
+      if (isAxiosError(err)) {
         const msg =
           (err.response?.data as { message?: string })?.message ||
           'Could not place your order. Please try again.';
