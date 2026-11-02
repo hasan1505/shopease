@@ -1,0 +1,14 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "A complete, production-quality e-commerce website built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, Node.js, Express, and MongoDB.",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && npm --prefix backend install && npm --prefix my-next-app install",
+    "dev": "npm --prefix backend run dev & npm --prefix my-next-app run dev & wait",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix my-next-app run dev",
+    "seed": "npm --prefix backend run seed"
+  },
+  "license": "ISC"
+}
