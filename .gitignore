@@ -5,6 +5,11 @@ node_modules/
 dist/
 .next/
 out/
+build/
+
+# Vercel / TypeScript
+.vercel/
+*.tsbuildinfo
 
 # Environment & secrets
 .env

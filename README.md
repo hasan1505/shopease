@@ -1,6 +1,6 @@
 # 🛒 ShopEase — Full-Stack E-Commerce (Next.js Only + MongoDB)
 
-A complete e-commerce platform built **entirely with Next.js** — the storefront, the admin panel, **and the API** (Next.js App Router API routes) live in one app. **No separate backend server.** Data is stored in MongoDB.
+A complete e-commerce platform built **entirely with Next.js** — the storefront, the admin panel, **and the API** (Next.js App Router API routes) live in one app at the repository root. **No separate backend server.** Data is stored in MongoDB.
 
 ![ShopEase](https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&h=400&fit=crop)
 
@@ -18,7 +18,7 @@ A complete e-commerce platform built **entirely with Next.js** — the storefron
 - **My Orders** — Order history with status timeline
 
 ### 🔐 Authentication
-- JWT-based login & registration (API routes + httpOnly-free Bearer tokens in localStorage)
+- JWT-based login & registration (Bearer tokens)
 - Protected routes (profile, checkout, orders) and admin role guard
 
 ### 🛠️ Admin Dashboard (`/admin`)
@@ -57,7 +57,6 @@ A complete e-commerce platform built **entirely with Next.js** — the storefron
 ### 1. Install & configure
 
 ```bash
-cd my-next-app
 npm install
 cp .env.local.example .env.local   # then edit MONGODB_URI + JWT_SECRET
 ```
@@ -84,30 +83,31 @@ The API is served by the same app at `http://localhost:3000/api/...` — nothing
 ## 📁 Project Structure
 
 ```
-ecommerce/
-└── my-next-app/
-    ├── app/
-    │   ├── (auth)/           # Login, Register
-    │   ├── (shop)/           # Home, Products, Cart, Wishlist, Checkout, Orders
-    │   ├── admin/            # Dashboard, Products, Orders, Customers
-    │   └── api/              # ← The whole backend lives here
-    │       ├── auth/         # register, login, me
-    │       ├── products/     # list/create, [id], featured, trending
-    │       ├── categories/   # list/create, [id]
-    │       ├── orders/       # create, my, [id]/status
-    │       └── admin/        # stats, users
-    ├── lib/
-    │   ├── models/           # Mongoose models (User, Product, Category, Order)
-    │   ├── mongodb.ts        # Cached DB connection (serverless-friendly)
-    │   ├── auth-utils.ts     # JWT sign/verify + request auth helper
-    │   └── api.ts, services.ts
-    ├── contexts/             # Auth, Cart, Wishlist (localStorage-persisted)
-    └── scripts/seed.mjs      # Demo data seeder
+shopease/                    (repository root — the whole Next.js app)
+├── app/
+│   ├── (auth)/              # Login, Register
+│   ├── (shop)/              # Home, Products, Cart, Wishlist, Checkout, Orders
+│   ├── admin/               # Dashboard, Products, Orders, Customers
+│   └── api/                 # ← The whole backend lives here
+│       ├── auth/            # register, login, me
+│       ├── products/        # list/create, [id], featured, trending
+│       ├── categories/      # list/create, [id]
+│       ├── orders/          # create, my, [id]/status
+│       └── admin/           # stats, users
+├── lib/
+│   ├── models/              # Mongoose models (User, Product, Category, Order)
+│   ├── mongodb.ts           # Cached DB connection (serverless-friendly)
+│   ├── auth-utils.ts        # JWT sign/verify + request auth helper
+│   └── api.ts, services.ts
+├── contexts/                # Auth, Cart, Wishlist (localStorage-persisted)
+├── components/              # Navbar, Footer, ProductCard, …
+├── scripts/seed.mjs         # Demo data seeder
+└── public/
 ```
 
 ---
 
-## 📦 Environment Variables (`my-next-app/.env.local`)
+## 📦 Environment Variables (`.env.local`)
 
 ```env
 MONGODB_URI=mongodb://localhost:27017/shopease
@@ -118,10 +118,10 @@ NEXT_PUBLIC_APP_NAME=ShopEase
 
 ---
 
-## 🚢 Deploying to Vercel (or any Node host)
+## 🚢 Deploying to Vercel
 
 1. Push this repo to GitHub
-2. In Vercel: **Import Project** → Root Directory = **`my-next-app`**
+2. In Vercel: **Import Project** — the app is at the repo root, so **no Root Directory setting is needed**
 3. Add environment variables (Settings → Environment Variables):
    - `MONGODB_URI` = your **MongoDB Atlas** connection string (free tier works)
    - `JWT_SECRET` = a long random string
@@ -140,7 +140,7 @@ NEXT_PUBLIC_APP_NAME=ShopEase
 |---|---|
 | Framework | Next.js 16 (App Router, Turbopack) |
 | UI | React 19, Tailwind CSS v4, lucide-react |
-| API | Next.js Route Handlers (Node runtime) |
+| API | Next.js Route Handlers |
 | Database | MongoDB + Mongoose 8 |
 | Auth | JWT (jsonwebtoken) + bcryptjs |
 | State | React Context (Auth/Cart/Wishlist persisted to localStorage) |
